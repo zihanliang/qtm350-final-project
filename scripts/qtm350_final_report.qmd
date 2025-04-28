@@ -1,0 +1,74 @@
+---
+title: "Economic Development Indicators: A Comparative Analysis of China, India, and the United States"
+author: 
+  - name: "Nicole Chen, Zihan Liang, Phoebe Pan, Mingke Tian"
+format: 
+  html: default
+  pdf:
+    documentclass: article
+    pdf-engine: lualatex
+    geometry: margin=1.2in
+    toc: true
+    number-sections: true
+---
+\clearpage
+
+# Introduction
+
+This project investigates macroeconomic development indicators across China, India, and the United States from 2000 to 2023, focusing on GDP growth, GDP per capita, and the employment-to-population ratio. These indicators provide insights into both the output and distributional aspects of national economies. Using data from the World Bank World Development Indicators (WDI) database, the project applies econometric and machine learning methods to analyze the interrelationships between these variables. By combining exploratory visualizations, regression models, and predictive tools, this report aims to uncover structural economic trends and policy-relevant patterns among the three countries.
+
+Our central research question is: **How do GDP growth, per capita income, and employment evolve differently across China, India, and the United States?**  
+We summarize that China’s economic growth has been rapid but labor-light, India’s development has been volatile and employment-sensitive, and the United States demonstrates steady, mature economic behavior.
+
+# Data Description
+
+The dataset was retrieved from the World Bank API and included annual observations for the selected indicators. The countries under study—China, India, and the United States—offer a diverse range of economic trajectories. China’s rapid transformation, India’s emerging economy, and the United States’ mature market economy serve as contrasting case studies. The original dataset was saved in wide format and included 216 rows and 6 columns, covering the years 2000 through 2023.
+
+## Data Merging Steps
+
+To prepare the dataset, we merged indicator series into a unified panel structure. The original wide-format WDI table (one year per column) was transformed into a long-format dataset, enabling time-series and panel regressions.
+
+## Data Cleaning and Pre-processing
+
+During cleaning, we removed entries with missing values and standardized variable names. Using DuckDB’s SQL UNPIVOT operation, we ensured consistent time series formatting across all countries and indicators, allowing reliable longitudinal analysis.
+
+The final cleaned dataset was saved as `wdi_long_clean.csv` for downstream statistical modeling.
+
+## Summary of Key Variables
+
+The three indicators analyzed are:
+
+- **Annual GDP Growth Rate (`NY.GDP.MKTP.KD.ZG`)**: Measures year-over-year economic expansion.
+- **GDP per Capita (`NY.GDP.PCAP.KD`)**: Reflects average individual income in constant 2015 USD.
+- **Employment-to-Population Ratio (`SL.EMP.TOTL.SP.ZS`)**: Indicates labor market participation relative to the working-age population.
+
+# Exploratory Analysis
+
+## Visual Summary of Core Insights
+
+| **GDP Growth (2000–2023)** | **GDP per Capita (2000–2023)** |
+|:--------------------------:|:------------------------------:|
+| ![](../figures/exploratory/trend_NY.GDP.MKTP.KD.ZG.png) <br> China’s growth peaked before 2008. India remained volatile. U.S. dipped in 2008 & 2020. | ![](../figures/exploratory/trend_NY.GDP.PCAP.KD.png) <br> China’s income converged. U.S. dominates. India grows slowly. |
+
+| **2023 GDP Growth** | **China Correlation Matrix** |
+|:-------------------:|:----------------------------:|
+| ![](../figures/exploratory/bar_NY.GDP.MKTP.KD.ZG_2023.png){height=250px} <br> India leads post-COVID. China follows. U.S. shows slower recovery. | ![](../figures/exploratory/corr_CHN.png){height=250px} <br> Employment decreases as income rises — indicating productivity-driven growth. |
+
+These visual comparisons reinforce the distinct developmental trajectories of China, India, and the United States, highlighting how patterns in growth, income, and employment reflect deeper structural and policy-driven differences across the three economies.
+
+# Data Analysis
+
+## Linear Regression Results
+
+To explore the relationships among GDP growth, GDP per capita, and employment, we conducted a series of pairwise Ordinary Least Squares (OLS) regressions using the full panel dataset.
+
+| Dependent | Predictor         | Coef     | R²     | p-value |
+|-----------|-------------------|----------|--------|---------|
+| GDP_Growth| GDP/Capita        | -0.0001  | 0.42   | 0.000   |
+| GDP_Growth| Employment Ratio  | 0.1532   | 0.08   | 0.013   |
+| GDP/Capita| GDP_Growth        | -4462.63 | 0.42   | 0.000   |
+| GDP/Capita| Employment Ratio  | 374.24   | 0.01   | 0.384   |
+
+Linear regression reveals that GDP growth declines as GDP per capita rises (coef = -0.0001, p < 0.001), reflecting diminishing returns in wealthier economies. Growth is positively linked to employment (coef = 0.1532, p = 0.013), though with limited explanatory power (R² = 0.08), suggesting labor contributes to output but isn't the main driver.
+
+In reverse, higher growth slightly reduces GDP per capita (coef = -4462.63, R² = 0.42), indicating transitional dynamics in developing economies. Employment shows no significant effect on income (p = 0.384), implying that income levels are shaped more by structural factors than labor participation.
