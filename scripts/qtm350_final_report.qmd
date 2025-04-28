@@ -72,3 +72,51 @@ To explore the relationships among GDP growth, GDP per capita, and employment, w
 Linear regression reveals that GDP growth declines as GDP per capita rises (coef = -0.0001, p < 0.001), reflecting diminishing returns in wealthier economies. Growth is positively linked to employment (coef = 0.1532, p = 0.013), though with limited explanatory power (R² = 0.08), suggesting labor contributes to output but isn't the main driver.
 
 In reverse, higher growth slightly reduces GDP per capita (coef = -4462.63, R² = 0.42), indicating transitional dynamics in developing economies. Employment shows no significant effect on income (p = 0.384), implying that income levels are shaped more by structural factors than labor participation.
+
+## Panel Regression Results
+
+To better account for unobserved heterogeneity and country-specific effects, we estimated panel regression models for each target variable: GDP growth, GDP per capita, and the employment-to-population ratio.
+
+| Target           | Model               | R²     |
+|------------------|---------------------|--------|
+| GDP Growth       | Basic               | 0.5555 |
+|                  | Fixed Effects       | 0.5795 |
+|                  | + Time Trend        | 0.5959 |
+| GDP/Capita       | Basic               | 0.5194 |
+|                  | Fixed Effects       | 0.9869 |
+|                  | + Time Trend        | 0.9952 |
+| Employment Ratio | Basic               | 0.2361 |
+|                  | Fixed Effects       | 0.9249 |
+|                  | + Time Trend        | 0.9731 |
+
+Panel regressions highlight the importance of country-specific factors. For GDP growth, explanatory power rises modestly from 55.6% to 59.6% with fixed effects and a time trend, suggesting partial influence from national context and temporal dynamics.
+
+GDP per capita shows stronger path dependence, with R² increasing from 0.52 to 0.99 across models—driven by persistent structural traits like institutions and infrastructure. Employment follows a similar pattern, with model fit improving from 0.24 to 0.97, indicating stable, country-driven labor trends.
+
+These results affirm that macroeconomic indicators are largely shaped by national trajectories, with development marked by gradual, historically grounded change.
+
+# Modeling and Forecasting
+
+## Time Series Forecasting (ARIMA)
+
+We fit ARIMA models per country-indicator:
+
+- **China**: ARIMA(1,1,0) for GDP growth; ARIMA(0,2,2) for GDP per capita.
+- **India**: GDP growth fit ARIMA(0,0,0), indicating volatility.
+- **United States**: ARIMA(0,1,0) and ARIMA(1,1,0) models fit various indicators.
+
+These results align with the prior economic narrative: China’s rapid transformation, India’s volatile path, and the U.S.’s stable evolution.
+
+## Machine Learning Predictions
+
+To evaluate predictive accuracy and complement our statistical analysis, we implemented machine learning models using GDP growth as the response variable. We compared three approaches: standard linear regression, elastic net regularization, and random forest.
+
+| Model         | RMSE   | R²     |
+|---------------|--------|--------|
+| Linear        | 2.2841 | 0.5834 |
+| Elastic Net   | 2.2806 | 0.5847 |
+| Random Forest | 1.8247 | 0.7341 |
+
+The linear model served as a baseline, with an RMSE of 2.2841 and R² of 0.5834. Elastic net slightly improved the fit (RMSE = 2.2806, R² = 0.5847), showing limited gains from penalizing overfitting. Both models captured broad patterns, but struggled with nonlinear relationships.
+
+The random forest model significantly outperformed the others, achieving an RMSE of 1.8247 and R² of 0.7341. As an ensemble method that averages over many decision trees, it effectively captures nonlinear interactions and variable importance without strong parametric assumptions. Its superior performance suggests that economic indicators interact in complex, non-additive ways, particularly across heterogeneous countries.
