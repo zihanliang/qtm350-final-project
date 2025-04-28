@@ -120,3 +120,9 @@ To evaluate predictive accuracy and complement our statistical analysis, we impl
 The linear model served as a baseline, with an RMSE of 2.2841 and R² of 0.5834. Elastic net slightly improved the fit (RMSE = 2.2806, R² = 0.5847), showing limited gains from penalizing overfitting. Both models captured broad patterns, but struggled with nonlinear relationships.
 
 The random forest model significantly outperformed the others, achieving an RMSE of 1.8247 and R² of 0.7341. As an ensemble method that averages over many decision trees, it effectively captures nonlinear interactions and variable importance without strong parametric assumptions. Its superior performance suggests that economic indicators interact in complex, non-additive ways, particularly across heterogeneous countries.
+
+# Discussion
+
+The results of this study highlight key developmental contrasts between the three economies. China’s rapid GDP growth is well-documented, but its declining employment ratio post-2015 may reflect industrial upgrading, automation, or demographic aging. India, despite consistent GDP growth, exhibits volatile employment trends, perhaps due to informal labor market structures and inconsistent policy implementation. The U.S. stands out for its consistent high income and labor stability, even with moderate GDP growth—underscoring the role of advanced institutions and infrastructure.
+
+One limitation of our analysis is that we focused on three countries and three indicators. Future work could disaggregate sectors, include external shocks (e.g., COVID-19), or expand to other emerging economies for broader validation.
