@@ -126,3 +126,16 @@ The random forest model significantly outperformed the others, achieving an RMSE
 The results of this study highlight key developmental contrasts between the three economies. China’s rapid GDP growth is well-documented, but its declining employment ratio post-2015 may reflect industrial upgrading, automation, or demographic aging. India, despite consistent GDP growth, exhibits volatile employment trends, perhaps due to informal labor market structures and inconsistent policy implementation. The U.S. stands out for its consistent high income and labor stability, even with moderate GDP growth—underscoring the role of advanced institutions and infrastructure.
 
 One limitation of our analysis is that we focused on three countries and three indicators. Future work could disaggregate sectors, include external shocks (e.g., COVID-19), or expand to other emerging economies for broader validation.
+
+# Conclusion
+
+This report provides a multi-faceted, reproducible analysis of economic development across China, India, and the United States. It shows how output growth, income convergence, and labor dynamics differ substantially across national contexts.
+
+Understanding not just the levels of these indicators, but their dynamic behavior across countries and over time, is critical for designing adaptive, effective economic policies.
+
+# Further Reading
+
+- [World Bank WDI Data](https://data.worldbank.org)
+- [World Bank API Docs](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392)
+- [Indicator Metadata](https://databankfiles.worldbank.org/public/ddpext_download/GNIPC.pdf)
+- [ARIMA Models Guide](https://otexts.com/fpp3/arima.html)
